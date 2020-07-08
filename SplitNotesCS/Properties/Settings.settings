@@ -1,7 +1,54 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SplitNotesCS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="livesplitHostname" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="livesplitPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">16834</Value>
+    </Setting>
+    <Setting Name="splitSeparator" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="previousSplits" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="nextSplits" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="fontSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="fontColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#000000</Value>
+    </Setting>
+    <Setting Name="backgroundColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#F1F8FF</Value>
+    </Setting>
+    <Setting Name="htmlTemplateFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">./Resources/Templates</Value>
+    </Setting>
+    <Setting Name="htmlTemplateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DefaultLayout.html</Value>
+    </Setting>
+    <Setting Name="cssTemplateFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">./Resources/Templates</Value>
+    </Setting>
+    <Setting Name="cssTemplateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default.css</Value>
+    </Setting>
+    <Setting Name="onTop" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="windowWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">800</Value>
+    </Setting>
+    <Setting Name="windowHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">800</Value>
+    </Setting>
+    <Setting Name="notesFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
 </SettingsFile>

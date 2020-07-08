@@ -8,22 +8,210 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SplitNotesCS.Properties
-{
-
-
+namespace SplitNotesCS.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        public string livesplitHostname {
+            get {
+                return ((string)(this["livesplitHostname"]));
+            }
+            set {
+                this["livesplitHostname"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16834")]
+        public int livesplitPort {
+            get {
+                return ((int)(this["livesplitPort"]));
+            }
+            set {
+                this["livesplitPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string splitSeparator {
+            get {
+                return ((string)(this["splitSeparator"]));
+            }
+            set {
+                this["splitSeparator"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int previousSplits {
+            get {
+                return ((int)(this["previousSplits"]));
+            }
+            set {
+                this["previousSplits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int nextSplits {
+            get {
+                return ((int)(this["nextSplits"]));
+            }
+            set {
+                this["nextSplits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int fontSize {
+            get {
+                return ((int)(this["fontSize"]));
+            }
+            set {
+                this["fontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#000000")]
+        public string fontColor {
+            get {
+                return ((string)(this["fontColor"]));
+            }
+            set {
+                this["fontColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#F1F8FF")]
+        public string backgroundColor {
+            get {
+                return ((string)(this["backgroundColor"]));
+            }
+            set {
+                this["backgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("./Resources/Templates")]
+        public string htmlTemplateFolder {
+            get {
+                return ((string)(this["htmlTemplateFolder"]));
+            }
+            set {
+                this["htmlTemplateFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DefaultLayout.html")]
+        public string htmlTemplateFile {
+            get {
+                return ((string)(this["htmlTemplateFile"]));
+            }
+            set {
+                this["htmlTemplateFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("./Resources/Templates")]
+        public string cssTemplateFolder {
+            get {
+                return ((string)(this["cssTemplateFolder"]));
+            }
+            set {
+                this["cssTemplateFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default.css")]
+        public string cssTemplateFile {
+            get {
+                return ((string)(this["cssTemplateFile"]));
+            }
+            set {
+                this["cssTemplateFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool onTop {
+            get {
+                return ((bool)(this["onTop"]));
+            }
+            set {
+                this["onTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
+        public int windowWidth {
+            get {
+                return ((int)(this["windowWidth"]));
+            }
+            set {
+                this["windowWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
+        public int windowHeight {
+            get {
+                return ((int)(this["windowHeight"]));
+            }
+            set {
+                this["windowHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string notesFolder {
+            get {
+                return ((string)(this["notesFolder"]));
+            }
+            set {
+                this["notesFolder"] = value;
             }
         }
     }
