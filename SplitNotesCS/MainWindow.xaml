@@ -1,0 +1,24 @@
+﻿<Window x:Name="SplitNotesCSMain" x:Class="SplitNotesCS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SplitNotesCS"
+        mc:Ignorable="d"
+        Title="Splitnotes CS" Height="1000" Width="800" Icon="/Resources/Images/logo_alpha.ico">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" FontSize="18">
+                    <MenuItem Header="_Open Notes" Click="OpenNotes_Click"/>
+                    <MenuItem Header="_Settings" Click="Settings_Click"/>
+                    <MenuItem Header="_Always On Top" IsCheckable="True"/>
+                </MenuItem>
+            </Menu>
+            <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom" FontSize="18">
+                Connecting to Livesplit Server
+            </StatusBar>
+            <WebBrowser x:Name="splitText"/>
+        </DockPanel>
+    </Grid>
+</Window>
