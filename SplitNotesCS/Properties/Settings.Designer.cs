@@ -98,12 +98,12 @@ namespace SplitNotesCS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#000000")]
-        public string fontColor {
+        public string textColor {
             get {
-                return ((string)(this["fontColor"]));
+                return ((string)(this["textColor"]));
             }
             set {
-                this["fontColor"] = value;
+                this["textColor"] = value;
             }
         }
         

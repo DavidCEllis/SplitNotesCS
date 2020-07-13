@@ -20,7 +20,7 @@
     <Setting Name="fontSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
-    <Setting Name="fontColor" Type="System.String" Scope="User">
+    <Setting Name="textColor" Type="System.String" Scope="User">
       <Value Profile="(Default)">#000000</Value>
     </Setting>
     <Setting Name="backgroundColor" Type="System.String" Scope="User">
