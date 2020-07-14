@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using Ganss.XSS;
 
-namespace SplitNotesCS
+namespace SplitNotesCS.Parsing
 {
     class NoteParser
     {

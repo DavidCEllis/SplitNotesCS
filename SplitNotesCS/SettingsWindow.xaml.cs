@@ -26,54 +26,64 @@ namespace SplitNotesCS
 
         private void OnPageLoaded(object sender, EventArgs e)
         {
-
-
-            // Validation Bindings
+            // Validation Bindings (Not done yet)
 
             // Load Values
             var settings = Properties.Settings.Default;  // Shortening the name
-            this.livesplitAddress.Text = (string)settings["livesplitHostname"];
-            this.livesplitPort.Text = (string)settings["livesplitPort"];
-            this.splitSeparator.Text = (string)settings["splitSeparator"];
-            this.previousSplits.Text = (string)settings["previousSplits"];
-            this.nextSplits.Text = (string)settings["nextSplits"];
-            this.fontSize.Text = (string)settings["fontSize"];
-            this.textColor.Text = (string)settings["textColor"];
-            this.backgroundColor.Text = (string)settings["backgroundColor"];
+            this.livesplitAddress.Text = settings.livesplitHostname;
+            this.livesplitPort.Text = settings.livesplitPort.ToString();
+            this.splitSeparator.Text = settings.splitSeparator;
+            this.previousSplits.Text = settings.previousSplits.ToString();
+            this.nextSplits.Text = settings.nextSplits.ToString();
+            this.fontSize.Text = settings.fontSize.ToString();
+            this.textColor.Text = settings.textColor;
+            this.backgroundColor.Text = settings.backgroundColor;
         }
 
-        private void okButton_Click(object sender, RoutedEventArgs e)
+        private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             var settings = Properties.Settings.Default;
 
-            settings["livesplitHostname"] = this.livesplitAddress.Text;
-            settings["livesplitPort"] = int.Parse(this.livesplitPort.Text);
-            settings["splitSeparator"] = this.splitSeparator.Text;
-            settings["previousSplits"] = int.Parse(this.previousSplits.Text);
-            settings["nextSplits"] = int.Parse(this.nextSplits.Text);
-            settings["fontSize"] = int.Parse(this.fontSize.Text);
-            settings["textColor"] = this.textColor.Text;
-            settings["backgroundColor"] = this.backgroundColor.Text;
+            settings.livesplitHostname = this.livesplitAddress.Text;
+            settings.livesplitPort = int.Parse(this.livesplitPort.Text);
+            settings.splitSeparator = this.splitSeparator.Text;
+            settings.previousSplits = int.Parse(this.previousSplits.Text);
+            settings.nextSplits = int.Parse(this.nextSplits.Text);
+            settings.fontSize = int.Parse(this.fontSize.Text);
+            settings.textColor = this.textColor.Text;
+            settings.backgroundColor = this.backgroundColor.Text;
 
             settings.Save();
             this.Close();
 
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             // Just close the window and don't do anything
             this.Close();
         }
 
-        private void pickTextColorButton_Click(object sender, RoutedEventArgs e)
+        private void PickTextColorButton_Click(object sender, RoutedEventArgs e)
         {
-
+            // Open a color form
+            var colorPicker = new System.Windows.Forms.ColorDialog();
+            if (colorPicker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var result = System.Drawing.ColorTranslator.ToHtml(colorPicker.Color);
+                this.textColor.Text = result;
+            }
         }
 
-        private void pickBGColorButton_Click(object sender, RoutedEventArgs e)
+        private void PickBGColorButton_Click(object sender, RoutedEventArgs e)
         {
-
+            // Open a color form
+            var colorPicker = new System.Windows.Forms.ColorDialog();
+            if (colorPicker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var result = System.Drawing.ColorTranslator.ToHtml(colorPicker.Color);
+                this.backgroundColor.Text = result;
+            }
         }
     }
 }

@@ -22,7 +22,9 @@ namespace SplitNotesCS
     /// </summary>
     public partial class MainWindow : Window
     {
-        private NoteParser notes;
+        private Parsing.NoteParser notes;
+
+        private Properties.Settings settings = Properties.Settings.Default;
 
         public MainWindow()
         {
@@ -37,26 +39,8 @@ namespace SplitNotesCS
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        // Doing things
-        private FlowDocument GetDefaultDocument()
-        {
-            var mainText = new Paragraph();
-            var message = new Run("Attempting to Connect to Livesplit Server.")
-            {
-                FontSize = 40,
-                FontWeight = FontWeights.Bold
-            };
-
-            mainText.Inlines.Add(message);
-
-            var defaultDoc = new FlowDocument();
-            defaultDoc.Blocks.Add(mainText);
-
-            return defaultDoc;
-
+            var settingsWin = new SettingsWindow();
+            settingsWin.ShowDialog();
         }
 
         private void GetNotes()
@@ -68,7 +52,7 @@ namespace SplitNotesCS
 
             if (openFileDialog.ShowDialog() == true)
             {
-                this.notes = new NoteParser(openFileDialog.FileName);
+                this.notes = new Parsing.NoteParser(openFileDialog.FileName);
                 this.RenderNotes(0, 1);
             }
         }
@@ -76,19 +60,7 @@ namespace SplitNotesCS
         private void RenderNotes(int startIndex, int endIndex, bool useMarkdown = false)
         {
             string noteText = this.notes.getNotes(startIndex, endIndex);
-            FlowDocument activeNotes;
-            // Convert from Markdown
-            if (false) // useMarkdown
-            {
-                
-            }
-            else
-            {
-                activeNotes = new FlowDocument();
-                var segmentText = new Paragraph(new Run(noteText));
-                
-                activeNotes.Blocks.Add(segmentText);
-            }
+            
             
         }
 
