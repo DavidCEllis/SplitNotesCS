@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SplitNotesCS"
         mc:Ignorable="d"
-        Title="Settings" Height="500" Width="380">
+        Title="Settings" Height="500" Width="380" Icon="Resources/Images/logo_alpha.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>

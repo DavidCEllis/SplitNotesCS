@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using CefSharp;
+using CefSharp.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,10 @@ namespace SplitNotesCS
     {
         private Parsing.NoteManager Notes = null;
         private Parsing.Templater Renderer;
-        
+        private int LastIndex = 0;
+
+        private ChromiumWebBrowser Browser;
+
         private readonly Properties.Settings Settings = Properties.Settings.Default;
         
         private string CurrentNoteFile = null;
@@ -32,8 +37,28 @@ namespace SplitNotesCS
         public MainWindow()
         {
             this.InitializeComponent();
+
+            // Register a window closing to save settings and 
+            this.Loaded += this.MainWindow_Loaded;
+            this.Closed += this.MainWindow_Closed;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Prepare note renderer
             this.Renderer = new Parsing.Templater(this.Settings);
-            this.RenderNotes(0);
+
+            // Add chrome component as child of border
+            this.Browser = new ChromiumWebBrowser();
+            this.BrowserContainer.Child = this.Browser;
+            this.Browser.MenuHandler = new Utilities.NullContextMenu();
+
+            this.Browser.Loaded += this.RenderNotes;
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            Cef.Shutdown();
         }
 
         // Connecting buttons
@@ -55,6 +80,7 @@ namespace SplitNotesCS
             }
 
             this.Renderer = new Parsing.Templater(this.Settings);
+            this.RenderNotes(this.LastIndex);
 
         }
 
@@ -69,12 +95,18 @@ namespace SplitNotesCS
             {
                 this.CurrentNoteFile = openFileDialog.FileName;
                 this.Notes = new Parsing.NoteManager(openFileDialog.FileName, this.Settings);
-                this.RenderNotes(0);
+                this.RenderNotes(this.LastIndex);
             }
+        }
+
+        public void RenderNotes(object sender, RoutedEventArgs e)
+        {
+            this.RenderNotes(this.LastIndex);
         }
 
         public void RenderNotes(int centreIndex)
         {
+            this.LastIndex = centreIndex;
             string htmlData;
             if (this.Notes != null)
             {
@@ -89,7 +121,7 @@ namespace SplitNotesCS
                 htmlData = this.Renderer.RenderTemplate(defaultMessage);
             }
 
-            this.splitText.NavigateToString(htmlData);
+            this.Browser.LoadHtml(htmlData);
         }
 
     }

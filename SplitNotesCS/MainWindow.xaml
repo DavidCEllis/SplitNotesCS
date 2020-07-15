@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SplitNotesCS"
+        xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
         Title="Splitnotes CS" Height="1000" Width="800" Icon="/Resources/Images/logo_alpha.ico">
     <Grid>
@@ -18,7 +19,7 @@
             <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom" FontSize="18">
                 Connecting to Livesplit Server
             </StatusBar>
-            <WebBrowser x:Name="splitText"/>
+            <Border x:Name="BrowserContainer"/>
         </DockPanel>
     </Grid>
 </Window>
