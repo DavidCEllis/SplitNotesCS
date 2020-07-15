@@ -22,28 +22,43 @@ namespace SplitNotesCS
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Parsing.NoteParser notes;
-
-        private Properties.Settings settings = Properties.Settings.Default;
+        private Parsing.NoteManager Notes = null;
+        private Parsing.Templater Renderer;
+        
+        private readonly Properties.Settings Settings = Properties.Settings.Default;
+        
+        private string CurrentNoteFile = null;
 
         public MainWindow()
         {
             this.InitializeComponent();
+            this.Renderer = new Parsing.Templater(this.Settings);
+            this.RenderNotes(0);
         }
 
         // Connecting buttons
         private void OpenNotes_Click(object sender, RoutedEventArgs e)
         {
-            this.GetNotes();
+            this.OpenNotes();
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             var settingsWin = new SettingsWindow();
             settingsWin.ShowDialog();
+
+            // Settings have been changed - refresh notes and connection
+            // Notes and Renderer might update if it works correctly by reference
+            if (this.CurrentNoteFile != null)
+            {
+                this.Notes = new Parsing.NoteManager(this.CurrentNoteFile, this.Settings);
+            }
+
+            this.Renderer = new Parsing.Templater(this.Settings);
+
         }
 
-        private void GetNotes()
+        private void OpenNotes()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -52,16 +67,29 @@ namespace SplitNotesCS
 
             if (openFileDialog.ShowDialog() == true)
             {
-                this.notes = new Parsing.NoteParser(openFileDialog.FileName);
-                this.RenderNotes(0, 1);
+                this.CurrentNoteFile = openFileDialog.FileName;
+                this.Notes = new Parsing.NoteManager(openFileDialog.FileName, this.Settings);
+                this.RenderNotes(0);
             }
         }
 
-        private void RenderNotes(int startIndex, int endIndex, bool useMarkdown = false)
+        public void RenderNotes(int centreIndex)
         {
-            string noteText = this.notes.getNotes(startIndex, endIndex);
-            
-            
+            string htmlData;
+            if (this.Notes != null)
+            {
+                
+                string rawNotes = this.Notes.GetRawNotes(centreIndex);
+                htmlData = this.Renderer.RenderTemplate(rawNotes);
+
+            }
+            else
+            {
+                string defaultMessage = "Notes currently not loaded. Choose \"Open Notes\" from the file menu.";
+                htmlData = this.Renderer.RenderTemplate(defaultMessage);
+            }
+
+            this.splitText.NavigateToString(htmlData);
         }
 
     }
