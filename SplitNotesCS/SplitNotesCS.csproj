@@ -105,7 +105,6 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\NullContextMenu.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -178,9 +177,6 @@
     <Resource Include="LICENSE-3RD-PARTY.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf">
-      <Version>83.4.20</Version>
-    </PackageReference>
     <PackageReference Include="HtmlSanitizer">
       <Version>5.0.331</Version>
     </PackageReference>

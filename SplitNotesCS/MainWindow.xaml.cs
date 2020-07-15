@@ -1,6 +1,4 @@
-﻿using CefSharp;
-using CefSharp.Wpf;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +26,6 @@ namespace SplitNotesCS
         private Parsing.Templater Renderer;
         private int LastIndex = 0;
 
-        private ChromiumWebBrowser Browser;
-
         private readonly Properties.Settings Settings = Properties.Settings.Default;
         
         private string CurrentNoteFile = null;
@@ -40,7 +36,6 @@ namespace SplitNotesCS
 
             // Register a window closing to save settings and 
             this.Loaded += this.MainWindow_Loaded;
-            this.Closed += this.MainWindow_Closed;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -48,18 +43,9 @@ namespace SplitNotesCS
             // Prepare note renderer
             this.Renderer = new Parsing.Templater(this.Settings);
 
-            // Add chrome component as child of border
-            this.Browser = new ChromiumWebBrowser();
-            this.BrowserContainer.Child = this.Browser;
-            this.Browser.MenuHandler = new Utilities.NullContextMenu();
-
-            this.Browser.Loaded += this.RenderNotes;
+            this.RenderNotes(0);
         }
 
-        private void MainWindow_Closed(object sender, EventArgs e)
-        {
-            Cef.Shutdown();
-        }
 
         // Connecting buttons
         private void OpenNotes_Click(object sender, RoutedEventArgs e)
@@ -99,11 +85,6 @@ namespace SplitNotesCS
             }
         }
 
-        public void RenderNotes(object sender, RoutedEventArgs e)
-        {
-            this.RenderNotes(this.LastIndex);
-        }
-
         public void RenderNotes(int centreIndex)
         {
             this.LastIndex = centreIndex;
@@ -121,7 +102,7 @@ namespace SplitNotesCS
                 htmlData = this.Renderer.RenderTemplate(defaultMessage);
             }
 
-            this.Browser.LoadHtml(htmlData);
+            this.Browser.NavigateToString(htmlData);
         }
 
     }
