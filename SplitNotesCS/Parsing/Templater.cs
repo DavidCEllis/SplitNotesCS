@@ -33,22 +33,37 @@ namespace SplitNotesCS.Parsing
         {
             string cssData;
             string cssPath = Path.Combine(this.Settings.cssTemplateFolder, this.Settings.cssTemplateFile);
-            using (var cssFile = new StreamReader(cssPath))
+            try 
             {
-                cssData = cssFile.ReadToEnd();
+                using (var cssFile = new StreamReader(cssPath))
+                {
+                    cssData = cssFile.ReadToEnd();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                cssData = $"<!-- Could Not Find CSS Template at: {Path.GetFullPath(cssPath)} -->";
             }
             return cssData;
-        }
+            }
 
         private string GetBaseTemplate ()
         {
             string htmlTemplate;
             string htmlPath = Path.Combine(this.Settings.htmlTemplateFolder, this.Settings.htmlTemplateFile);
-            using (var htmlFile = new StreamReader(htmlPath))
+            try
             {
-                htmlTemplate = htmlFile.ReadToEnd();
+                using (var htmlFile = new StreamReader(htmlPath))
+                {
+                    htmlTemplate = htmlFile.ReadToEnd();
+                }
+                return htmlTemplate;
             }
-            return htmlTemplate;
+            catch (FileNotFoundException)
+            {
+                return $"<strong>Could not find HTML Template: {Path.GetFullPath(htmlPath)}</strong>";
+            }
+            
         }
 
         /// <summary>
