@@ -37,7 +37,13 @@ The settings page offers some customisation and connection settings including:
 
 ---
 
-Inspired by (but otherwise unassociated with) the original splitnotes: https://github.com/joeloskarsson/SplitNotes
+## Why? Splitnotes/SpeedGuidesLive/Splitnotes2 already exists ##
 
-I also released a previous version written in Python: https://github.com/DavidCEllis/SplitNotes-2
-The goal of this version is to reduce the distributable size (and to learn some C#). The python version when distributed was a somewhat ridiculous 300MB.
+[SplitNotes](https://github.com/joeloskarsson/SplitNotes) is the original version of splitnotes.
+[SplitNotes-2](https://github.com/DavidCEllis/SplitNotes-2) Was a version I remade in python using PyQt
+[SpeedGuidesLive](https://www.nightgamedev.com/sgl) is a closed source livesplit component and making notes appears to require editing inside Livesplit rather than a standard text editor (I have not tried it).
+
+The original version didn't allow for some more fancy formatting that I wanted in my notes. 
+In order to allow for more formatting options the notes are now converted to HTML and rendered by a browser.
+The python version ended up using a QWebEngineView - however this made the distributable overly large (~300MB).
+This version uses WPF and takes advantage of the WebBrowser control which makes a much smaller distributable (~3MB).

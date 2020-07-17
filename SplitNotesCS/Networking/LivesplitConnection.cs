@@ -93,7 +93,7 @@ namespace SplitNotesCS.Networking
         public int GetIndex()
         {
             string indexAsString = this.SendReceive("getsplitindex").Trim();
-            return Convert.ToInt32(indexAsString);
+            return Math.Max(Convert.ToInt32(indexAsString), 0);  // Always return at least 0 instead of -ve numbers when the splits aren't running.
         }
     }
 }
