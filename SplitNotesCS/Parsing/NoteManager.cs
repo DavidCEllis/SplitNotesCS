@@ -5,6 +5,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Diagnostics;
 using Ganss.XSS;
 
 namespace SplitNotesCS.Parsing
@@ -40,7 +41,7 @@ namespace SplitNotesCS.Parsing
         {
             // Basic values for start and end index
             int startIndex = baseIndex - this.Settings.previousSplits;
-            int endIndex = baseIndex + this.Settings.nextSplits;
+            int endIndex = baseIndex + this.Settings.nextSplits + 1;
 
             // Restricting the ranges
             startIndex = Math.Min(Math.Max(startIndex, 0), this.Notes.Count());
