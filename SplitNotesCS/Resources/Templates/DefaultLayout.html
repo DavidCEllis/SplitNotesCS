@@ -1,21 +1,25 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-  <meta charset="UTF-8">
-  <title>Splitnotes</title>
-  <style type="text/css">
-    :root {
-      font-size: {{font_size}}px;
-      color: {{text_color}};
-      background-color: {{bg_color}};
-    }
-    {{& css}}
-  </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <title>Splitnotes</title>
+    <!-- Disable the right click menu -->
+    <script>
+        window.oncontextmenu = function () { return false; };
+    </script>
+    <style type="text/css">
+        :root {
+            font-size: {{font_size}}px;
+            color: {{text_color}};
+            background-color: {{bg_color}};
+        }
+        {{& css}}
+    </style>
 </head>
-<body oncontextmenu="return false">
-<div id="splits" class="main-content">
-  {{& splits}}
-</div>
+<body>
+    <div id="splits" class="main-content">
+        {{& splits}}
+    </div>
 </body>
 </html>

@@ -46,6 +46,7 @@ namespace SplitNotesCS
             // Register a window closing to save settings and 
             this.Loaded += this.MainWindow_Loaded;
             this.Closed += this.MainWindow_Closed;
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -92,6 +93,11 @@ namespace SplitNotesCS
 
         }
 
+        private void ToggleTopmost(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = this.OnTopMenu.IsChecked;
+        }
+        
         // The main livesplit thread code
         private void ConnectLivesplit()
         {
