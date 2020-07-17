@@ -41,10 +41,10 @@
     <Setting Name="onTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="windowWidth" Type="System.Int32" Scope="User">
+    <Setting Name="windowWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">800</Value>
     </Setting>
-    <Setting Name="windowHeight" Type="System.Int32" Scope="User">
+    <Setting Name="windowHeight" Type="System.Double" Scope="User">
       <Value Profile="(Default)">800</Value>
     </Setting>
     <Setting Name="notesFolder" Type="System.String" Scope="User">

@@ -182,9 +182,9 @@ namespace SplitNotesCS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("800")]
-        public int windowWidth {
+        public double windowWidth {
             get {
-                return ((int)(this["windowWidth"]));
+                return ((double)(this["windowWidth"]));
             }
             set {
                 this["windowWidth"] = value;
@@ -194,9 +194,9 @@ namespace SplitNotesCS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("800")]
-        public int windowHeight {
+        public double windowHeight {
             get {
-                return ((int)(this["windowHeight"]));
+                return ((double)(this["windowHeight"]));
             }
             set {
                 this["windowHeight"] = value;

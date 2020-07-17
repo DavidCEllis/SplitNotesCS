@@ -51,6 +51,9 @@ namespace SplitNotesCS
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Height = this.Settings.windowHeight;
+            this.Width = this.Settings.windowWidth;
+
             // Prepare note renderer
             this.Renderer = new Parsing.Templater(this.Settings);
 
@@ -64,6 +67,13 @@ namespace SplitNotesCS
         }
         private void MainWindow_Closed(object sender, EventArgs e)
         {
+            // Store window width and height
+            this.Settings.windowHeight = this.Height;
+            this.Settings.windowWidth = this.Width;
+
+            // Store current settings.
+            this.Settings.Save();
+
             if (this.networkThread != null)
             {
                 this.closeThread = true;
