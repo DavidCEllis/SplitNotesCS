@@ -49,8 +49,11 @@ namespace SplitNotesCS.Networking
 
         public void Disconnect()
         {
-            this.connection.Disconnect(true);
-            this.Connected = false;
+            if (this.Connected)
+            {
+                this.connection.Disconnect(true);
+                this.Connected = false;
+            }
         }
 
         public string SendReceive(string message)

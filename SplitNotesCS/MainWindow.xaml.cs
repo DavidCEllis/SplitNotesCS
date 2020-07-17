@@ -2,6 +2,7 @@
 using SplitNotesCS.Networking;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace SplitNotesCS
         private readonly Properties.Settings Settings = Properties.Settings.Default;
 
         private readonly int updateInterval = 100;  // Update 10x a second
-        private bool closeThread = false;
+        volatile private bool closeThread = false;
         private Thread networkThread;
         private LivesplitConnection LSConnection;
 
@@ -45,7 +46,7 @@ namespace SplitNotesCS
 
             // Register a window closing to save settings and 
             this.Loaded += this.MainWindow_Loaded;
-            this.Closed += this.MainWindow_Closed;
+            this.Closing += this.MainWindow_Closing;
 
         }
 
@@ -63,9 +64,10 @@ namespace SplitNotesCS
             // Start networking thread
             this.closeThread = false;
             this.networkThread = new Thread(new ThreadStart(this.ConnectLivesplit));
+            this.networkThread.IsBackground = true;
             this.networkThread.Start();
         }
-        private void MainWindow_Closed(object sender, EventArgs e)
+        private void MainWindow_Closing(object sender, EventArgs e)
         {
             // Store window width and height
             this.Settings.windowHeight = this.Height;
@@ -73,12 +75,11 @@ namespace SplitNotesCS
 
             // Store current settings.
             this.Settings.Save();
-
-            if (this.networkThread != null)
-            {
-                this.closeThread = true;
-                this.networkThread.Join(); // Join the thread to wait for it to close
-            }
+            
+            // Tell the thread to close
+            this.closeThread = true;
+            Thread.Sleep(this.updateInterval * 2); // Sleep to allow the thread to close
+            
         }
 
         // Connecting buttons
@@ -107,7 +108,7 @@ namespace SplitNotesCS
         {
             this.Topmost = this.OnTopMenu.IsChecked;
         }
-        
+
         // The main livesplit thread code
         private void ConnectLivesplit()
         {
@@ -146,6 +147,8 @@ namespace SplitNotesCS
                 }
                 Thread.Sleep(this.updateInterval);   
             }
+
+            this.LSConnection.Disconnect();
         }
 
         private void OpenNotes()
