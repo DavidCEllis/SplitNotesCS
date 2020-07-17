@@ -38,9 +38,13 @@ namespace SplitNotesCS.Parsing
         /// <returns></returns>
         public string GetRawNotes(int baseIndex)
         {
-            // Restrict index range - should be at least 0 and less than the number of elements in notes.
-            int startIndex = Math.Max(baseIndex - this.Settings.previousSplits, 0);
-            int endIndex = Math.Min(baseIndex + this.Settings.nextSplits, this.Notes.Count());
+            // Basic values for start and end index
+            int startIndex = baseIndex - this.Settings.previousSplits;
+            int endIndex = baseIndex + this.Settings.nextSplits;
+
+            // Restricting the ranges
+            startIndex = Math.Min(Math.Max(startIndex, 0), this.Notes.Count());
+            endIndex = Math.Max(Math.Min(endIndex, this.Notes.Count()), startIndex + 1);
 
             List<string> notes = this.Notes.GetRange(startIndex, endIndex - startIndex);
             return String.Join("\n<hr>\n", notes);
@@ -54,52 +58,59 @@ namespace SplitNotesCS.Parsing
         {
             // Output Data List
             var processedNotes = new List<string>();
-            
-            using (var noteFile = new StreamReader(NotePath))
+
+            try
             {
-
-                var split = new List<string>();
-                string line;
-
-                var sanitizer = new Sanitizer();
-
-                // Read from the file and separate the text into blocks by split
-                while ((line = noteFile.ReadLine()) != null)
+                using (var noteFile = new StreamReader(this.NotePath))
                 {
 
-                    line = line.Trim();
-                    // Skip Commented lines
-                    if (line.StartsWith(commentStart) && line.EndsWith(commentEnd)) continue;
+                    var split = new List<string>();
+                    string line;
 
-                    // What to do if we've reached the end of a block
-                    if (line == this.Settings.splitSeparator)
+                    var sanitizer = new Sanitizer();
+
+                    // Read from the file and separate the text into blocks by split
+                    while ((line = noteFile.ReadLine()) != null)
                     {
-                        // Special case if the separator is blank and the split is empty, don't add the split
-                        // So 2 blank lines won't end up adding a blank split if newline is the separator
-                        if ((this.Settings.splitSeparator == "") && (split.Count() == 0)) continue;
 
-                        // Reconnect with newlines, process text/html/markdown, append and clear
+                        line = line.Trim();
+                        // Skip Commented lines
+                        if (line.StartsWith(commentStart) && line.EndsWith(commentEnd)) continue;
+
+                        // What to do if we've reached the end of a block
+                        if (line == this.Settings.splitSeparator)
+                        {
+                            // Special case if the separator is blank and the split is empty, don't add the split
+                            // So 2 blank lines won't end up adding a blank split if newline is the separator
+                            if ((this.Settings.splitSeparator == "") && (split.Count() == 0)) continue;
+
+                            // Reconnect with newlines, process text/html/markdown, append and clear
+                            string splitString = String.Join("\n", split);
+                            splitString = sanitizer.Prepare(splitString, this.FileExt);
+                            processedNotes.Add(splitString);
+                            split.Clear();
+                        }
+                        else
+                        {
+                            split.Add(line);
+                        }
+                    }
+                    // On completion - add the final segment if it is not empty
+                    if (split.Count > 0)
+                    {
                         string splitString = String.Join("\n", split);
                         splitString = sanitizer.Prepare(splitString, this.FileExt);
                         processedNotes.Add(splitString);
-                        split.Clear();    
-                    } 
-                    else
-                    {
-                        split.Add(line);
+                        split.Clear();
                     }
-                }
-                // On completion - add the final segment if it is not empty
-                if (split.Count > 0)
-                {
-                    string splitString = String.Join("\n", split);
-                    splitString = sanitizer.Prepare(splitString, this.FileExt);
-                    processedNotes.Add(splitString);
-                    split.Clear();
-                }
 
+                }
             }
-
+            catch (FileNotFoundException)
+            {
+                // I guess if you managed to get a file that didn't exist in the open file dialog you get here?
+                processedNotes.Add($"Could not find notes file {this.NotePath}");
+            }
             return processedNotes;
         }
     }

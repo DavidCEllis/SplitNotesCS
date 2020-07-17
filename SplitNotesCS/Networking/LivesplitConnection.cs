@@ -34,10 +34,17 @@ namespace SplitNotesCS.Networking
         {
             // IPV4, Stream, TCP Connection
             this.connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            this.connection.Connect(this.hostname, this.port);
-            this.connection.ReceiveTimeout = Convert.ToInt32(this.Timeout * 1000.0);
 
-            this.Connected = true;
+            try
+            {
+                this.connection.Connect(this.hostname, this.port);
+                this.connection.ReceiveTimeout = Convert.ToInt32(this.Timeout * 1000.0);
+                this.Connected = true;
+            }
+            catch (SocketException e) {
+                this.Connected = false;
+                throw e;  // Rethrow the error to be handled elsewhere
+            }
         }
 
         public void Disconnect()
@@ -51,15 +58,35 @@ namespace SplitNotesCS.Networking
             message += "\r\n";
             string response = "";
 
-            byte[] bMessage = Encoding.UTF8.GetBytes(message);
-            this.connection.Send(bMessage);
-
-            byte[] bResponse = new byte[BUFFER_SIZE];
-            int bytesReceived = this.connection.Receive(bResponse);
-            if (bytesReceived > 0)
+            try
             {
-                response = Encoding.UTF8.GetString(bResponse);
+                byte[] bMessage = Encoding.UTF8.GetBytes(message);
+                this.connection.Send(bMessage);
+
+                byte[] bResponse = new byte[BUFFER_SIZE];
+                int bytesReceived = this.connection.Receive(bResponse);
+                if (bytesReceived > 0)
+                {
+                    response = Encoding.UTF8.GetString(bResponse);
+                }
             }
+            catch (SocketException e)
+            {
+                this.Connected = false;
+                throw e;
+            }
+            catch (ObjectDisposedException e)
+            {
+                this.Connected = false;
+                throw e;
+            }
+
+            // Empty message indicates the connection is over
+            if (response == "")
+            {
+                this.Connected = false;
+            }
+
             return response;
         }
 

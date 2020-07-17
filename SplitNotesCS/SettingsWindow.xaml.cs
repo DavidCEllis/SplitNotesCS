@@ -44,12 +44,20 @@ namespace SplitNotesCS
         {
             var settings = Properties.Settings.Default;
 
+            int port = int.Parse(this.livesplitPort.Text);
+            // Filter valid ranges for port
+            if (port >= 1 && port <= 65535)
+            {
+                settings.livesplitPort = port;
+            }
+
+
             settings.livesplitHostname = this.livesplitAddress.Text;
-            settings.livesplitPort = int.Parse(this.livesplitPort.Text);
+            
             settings.splitSeparator = this.splitSeparator.Text;
-            settings.previousSplits = int.Parse(this.previousSplits.Text);
-            settings.nextSplits = int.Parse(this.nextSplits.Text);
-            settings.fontSize = int.Parse(this.fontSize.Text);
+            settings.previousSplits = Math.Abs(int.Parse(this.previousSplits.Text));
+            settings.nextSplits = Math.Abs(int.Parse(this.nextSplits.Text));
+            settings.fontSize = Math.Abs(int.Parse(this.fontSize.Text));
             settings.textColor = this.textColor.Text;
             settings.backgroundColor = this.backgroundColor.Text;
 

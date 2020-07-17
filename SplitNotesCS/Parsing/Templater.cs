@@ -57,13 +57,13 @@ namespace SplitNotesCS.Parsing
                 {
                     htmlTemplate = htmlFile.ReadToEnd();
                 }
-                return htmlTemplate;
             }
             catch (FileNotFoundException)
             {
-                return $"<strong>Could not find HTML Template: {Path.GetFullPath(htmlPath)}</strong>";
+                htmlTemplate = $"<strong>Could not find HTML Template: {Path.GetFullPath(htmlPath)}</strong>";
             }
-            
+
+            return htmlTemplate;
         }
 
         /// <summary>

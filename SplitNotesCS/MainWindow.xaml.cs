@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using SplitNotesCS.Networking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +29,14 @@ namespace SplitNotesCS
         private int LastIndex = 0;
 
         private readonly Properties.Settings Settings = Properties.Settings.Default;
-        
+
+        private readonly int updateInterval = 100;  // Update 10x a second
+        private bool closeThread = false;
+        private Thread networkThread;
+        private LivesplitConnection LSConnection;
+
+        private int SplitOffset = 0;  // This is an offset for manually moving through splits
+
         private string CurrentNoteFile = null;
 
         public MainWindow()
@@ -36,6 +45,7 @@ namespace SplitNotesCS
 
             // Register a window closing to save settings and 
             this.Loaded += this.MainWindow_Loaded;
+            this.Closed += this.MainWindow_Closed;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -44,8 +54,21 @@ namespace SplitNotesCS
             this.Renderer = new Parsing.Templater(this.Settings);
 
             this.RenderNotes(0);
-        }
+            this.SetStatus("Connecting to Livesplit Server.");
 
+            // Start networking thread
+            this.closeThread = false;
+            this.networkThread = new Thread(new ThreadStart(this.ConnectLivesplit));
+            this.networkThread.Start();
+        }
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            if (this.networkThread != null)
+            {
+                this.closeThread = true;
+                this.networkThread.Join(); // Join the thread to wait for it to close
+            }
+        }
 
         // Connecting buttons
         private void OpenNotes_Click(object sender, RoutedEventArgs e)
@@ -59,7 +82,6 @@ namespace SplitNotesCS
             settingsWin.ShowDialog();
 
             // Settings have been changed - refresh notes and connection
-            // Notes and Renderer might update if it works correctly by reference
             if (this.CurrentNoteFile != null)
             {
                 this.Notes = new Parsing.NoteManager(this.CurrentNoteFile, this.Settings);
@@ -68,6 +90,46 @@ namespace SplitNotesCS
             this.Renderer = new Parsing.Templater(this.Settings);
             this.RenderNotes(this.LastIndex);
 
+        }
+
+        // The main livesplit thread code
+        private void ConnectLivesplit()
+        {
+            LSConnection = new LivesplitConnection(this.Settings.livesplitHostname, this.Settings.livesplitPort);
+
+            while (!this.closeThread)
+            {
+                // If not connected try to connect
+                if (this.LSConnection.Connected == false)
+                {
+                    try
+                    {
+                        this.LSConnection.Connect();
+                        this.Dispatcher.Invoke(() => this.SetStatus("Connected to Livesplit."));
+                    }
+                    catch (Exception e)
+                    {
+                        this.Dispatcher.Invoke(() => this.SetStatus($"Failed to Connect to Livesplit: {e.Message}"));
+                    }
+                }
+                // If connected, get the current split index
+                else
+                {
+                    try
+                    {
+                        int livesplitIndex = this.LSConnection.GetIndex() + this.SplitOffset; // Get the current index and combine with the offset
+                        if (this.LastIndex != livesplitIndex)
+                        {
+                            this.Dispatcher.Invoke(() => this.RenderNotes(livesplitIndex));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        this.Dispatcher.Invoke(() => this.SetStatus($"Lost Connection to Livesplit - retrying: {e.Message}"));
+                    }
+                }
+                Thread.Sleep(this.updateInterval);   
+            }
         }
 
         private void OpenNotes()
@@ -103,6 +165,12 @@ namespace SplitNotesCS
             }
 
             this.Browser.NavigateToString(htmlData);
+        }
+
+        // Update the statusbar message
+        public void SetStatus(string message)
+        {
+            this.StatusText.Text = message;
         }
 
     }

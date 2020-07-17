@@ -16,7 +16,9 @@
                 </MenuItem>
             </Menu>
             <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom" FontSize="18">
-                Connecting to Livesplit Server
+                <StatusBarItem>
+                    <TextBlock x:Name="StatusText"/>
+                </StatusBarItem>
             </StatusBar>
             <WebBrowser x:Name="Browser"/>
         </DockPanel>
