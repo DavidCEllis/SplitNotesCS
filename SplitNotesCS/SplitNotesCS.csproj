@@ -149,7 +149,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -167,7 +166,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="LICENSE-3RD-PARTY.txt" />
     <Resource Include="Resources\Images\logo_alpha.ico" />
     <Resource Include="Resources\Images\logo_alpha.png" />
     <Content Include="Resources\Templates\Default.css">

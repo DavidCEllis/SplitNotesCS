@@ -35,13 +35,11 @@ The settings page offers some customisation and connection settings including:
 * Base font size
 * Default text and background colour
 
----
-
 ## Why? Splitnotes/SpeedGuidesLive/Splitnotes2 already exists ##
 
-[SplitNotes](https://github.com/joeloskarsson/SplitNotes) is the original version of splitnotes.
-[SplitNotes-2](https://github.com/DavidCEllis/SplitNotes-2) Was a version I remade in python using PyQt
-[SpeedGuidesLive](https://www.nightgamedev.com/sgl) is a closed source livesplit component and making notes appears to require editing inside Livesplit rather than a standard text editor (I have not tried it).
+* [SplitNotes](https://github.com/joeloskarsson/SplitNotes) is the original version of splitnotes.
+* [SplitNotes-2](https://github.com/DavidCEllis/SplitNotes-2) Was a version I remade in python using PyQt
+* [SpeedGuidesLive](https://www.nightgamedev.com/sgl) is a closed source livesplit component and making notes appears to require editing inside Livesplit rather than a standard text editor (I have not tried it).
 
 The original version didn't allow for some more fancy formatting that I wanted in my notes. 
 In order to allow for more formatting options the notes are now converted to HTML and rendered by a browser.
