@@ -167,6 +167,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="LICENSE-3RD-PARTY.txt" />
     <Resource Include="Resources\Images\logo_alpha.ico" />
     <Resource Include="Resources\Images\logo_alpha.png" />
     <Content Include="Resources\Templates\Default.css">
@@ -175,9 +176,6 @@
     <Content Include="Resources\Templates\DefaultLayout.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="LICENSE-3RD-PARTY.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlSanitizer">
