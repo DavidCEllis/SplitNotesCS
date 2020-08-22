@@ -66,6 +66,11 @@ namespace SplitNotesCS
             this.networkThread = new Thread(new ThreadStart(this.ConnectLivesplit));
             this.networkThread.IsBackground = true;
             this.networkThread.Start();
+
+            if (this.Settings.hotkeysActive)
+            {
+                this.EnableHotkeys();
+            }
         }
         private void MainWindow_Closing(object sender, EventArgs e)
         {
@@ -80,6 +85,19 @@ namespace SplitNotesCS
             this.closeThread = true;
             Thread.Sleep(this.updateInterval * 2); // Sleep to allow the thread to close
             
+
+            if (this.Settings.hotkeysActive)
+            {
+                this.DisableHotkeys();
+            }
+        }
+
+        private void EnableHotkeys() 
+        { 
+        }
+
+        private void DisableHotkeys() 
+        { 
         }
 
         // Connecting buttons
@@ -100,7 +118,7 @@ namespace SplitNotesCS
             }
 
             this.Renderer = new Parsing.Templater(this.Settings);
-            this.RenderNotes(this.LastIndex);
+            this.RenderNotes();
 
         }
 
@@ -155,15 +173,23 @@ namespace SplitNotesCS
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "Text files (*.txt)|*.txt|Markdown files (*.md)|*.md|HTML files (*.html)|*.html"
+                Filter = "Note Files (*.txt;*.md;*.html)|*.txt;*.md;*.html|All Files (*.*)|*.*"
             };
 
             if (openFileDialog.ShowDialog() == true)
             {
                 this.CurrentNoteFile = openFileDialog.FileName;
                 this.Notes = new Parsing.NoteManager(openFileDialog.FileName, this.Settings);
-                this.RenderNotes(this.LastIndex);
+                this.RenderNotes();
             }
+        }
+
+        /// <summary>
+        /// Render/rerender notes with the last index value
+        /// </summary>
+        public void RenderNotes()
+        {
+            this.RenderNotes(this.LastIndex);
         }
 
         public void RenderNotes(int centreIndex)

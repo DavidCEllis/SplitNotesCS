@@ -214,5 +214,41 @@ namespace SplitNotesCS.Properties {
                 this["notesFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int hotkeyNoteAdvance {
+            get {
+                return ((int)(this["hotkeyNoteAdvance"]));
+            }
+            set {
+                this["hotkeyNoteAdvance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int hotkeyNoteReverse {
+            get {
+                return ((int)(this["hotkeyNoteReverse"]));
+            }
+            set {
+                this["hotkeyNoteReverse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hotkeysActive {
+            get {
+                return ((bool)(this["hotkeysActive"]));
+            }
+            set {
+                this["hotkeysActive"] = value;
+            }
+        }
     }
 }

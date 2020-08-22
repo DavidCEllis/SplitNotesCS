@@ -39,16 +39,23 @@ namespace SplitNotesCS.Parsing
         /// <returns></returns>
         public string GetRawNotes(int baseIndex)
         {
-            // Basic values for start and end index
-            int startIndex = baseIndex - this.Settings.previousSplits;
-            int endIndex = baseIndex + this.Settings.nextSplits + 1;
+            if (baseIndex >= this.Notes.Count())
+            {
+                return "<h1>End of Notes Reached</h1>";
+            }
+            else
+            {
+                // Basic values for start and end index
+                int startIndex = baseIndex - this.Settings.previousSplits;
+                int endIndex = baseIndex + this.Settings.nextSplits + 1;
 
-            // Restricting the ranges
-            startIndex = Math.Min(Math.Max(startIndex, 0), this.Notes.Count());
-            endIndex = Math.Max(Math.Min(endIndex, this.Notes.Count()), startIndex + 1);
+                // Restricting the ranges
+                startIndex = Math.Min(Math.Max(startIndex, 0), this.Notes.Count());
+                endIndex = Math.Max(Math.Min(endIndex, this.Notes.Count()), startIndex);
 
-            List<string> notes = this.Notes.GetRange(startIndex, endIndex - startIndex);
-            return String.Join("\n<hr>\n", notes);
+                List<string> notes = this.Notes.GetRange(startIndex, endIndex - startIndex);
+                return String.Join("\n<hr>\n", notes);
+            }
         }
 
         
@@ -74,7 +81,6 @@ namespace SplitNotesCS.Parsing
                     while ((line = noteFile.ReadLine()) != null)
                     {
 
-                        line = line.Trim();
                         // Skip Commented lines
                         if (line.StartsWith(commentStart) && line.EndsWith(commentEnd)) continue;
 

@@ -102,6 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Hotkey.cs" />
     <Compile Include="Parsing\Sanitizer.cs" />
     <Compile Include="Parsing\Templater.cs" />
     <Compile Include="Settings.cs" />
@@ -179,6 +180,9 @@
     <PackageReference Include="HtmlSanitizer">
       <Version>5.0.331</Version>
     </PackageReference>
+    <PackageReference Include="LowLevelHooking">
+      <Version>1.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Markdig">
       <Version>0.20.0</Version>
     </PackageReference>
@@ -193,4 +197,8 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

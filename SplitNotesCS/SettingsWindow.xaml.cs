@@ -45,7 +45,7 @@ namespace SplitNotesCS
             var settings = Properties.Settings.Default;
 
             int port = int.Parse(this.livesplitPort.Text);
-            // Filter valid ranges for port
+            // Filter valid ranges for port - so far we'll just ignore invalid values
             if (port >= 1 && port <= 65535)
             {
                 settings.livesplitPort = port;
