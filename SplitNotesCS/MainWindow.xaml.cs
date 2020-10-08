@@ -44,7 +44,7 @@ namespace SplitNotesCS
         {
             this.InitializeComponent();
 
-            // Register a window closing to save settings and 
+            // Register a window closing to save settings
             this.Loaded += this.MainWindow_Loaded;
             this.Closing += this.MainWindow_Closing;
 
