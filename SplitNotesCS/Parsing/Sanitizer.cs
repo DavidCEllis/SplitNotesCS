@@ -10,6 +10,10 @@ namespace SplitNotesCS.Parsing
 {
     class Sanitizer
     {
+        /// <summary>
+        /// This class handles the various formatters and sanitizers that are designed to remove
+        /// any 'unsafe' HTML and convert Markdown files to HTML
+        /// </summary>
 
         private HtmlSanitizer sanitizer;
 

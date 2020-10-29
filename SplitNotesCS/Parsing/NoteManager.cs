@@ -12,6 +12,11 @@ namespace SplitNotesCS.Parsing
 {
     class NoteManager
     {
+        /// <summary>
+        /// This reads the notes file, collects them by split and feeds them to the sanitizer
+        /// to prepare them for the renderer.
+        /// </summary>
+
         private readonly List<string> Notes; // The notes themselves
 
         public string NotePath { get; private set; }  // Source file used for notes
@@ -60,7 +65,8 @@ namespace SplitNotesCS.Parsing
 
         
         /// <summary>
-        /// Read the notes from the file system and split them into segments based on the separator
+        /// Read the notes from the file system and split them into segments based on the separator.
+        /// Sanitization also occurs here as the notes are read in.
         /// </summary>
         private List<string> ReadNotes()
         {

@@ -27,7 +27,7 @@ namespace SplitNotesCS
     {
         private Parsing.NoteManager Notes = null;
         private Parsing.Templater Renderer;
-        private int LastIndex = 0;
+        private int LastIndex = 0;  // Used to check if it's necessary to update the HTML
 
         private readonly Properties.Settings Settings = Properties.Settings.Default;
 
@@ -50,6 +50,12 @@ namespace SplitNotesCS
 
         }
 
+        /// <summary>
+        /// This is the listener for the loaded event of the window 
+        /// It sets the height and width from the settings and starts the rendering and livesplit connection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.Height = this.Settings.windowHeight;
@@ -127,7 +133,9 @@ namespace SplitNotesCS
             this.Topmost = this.OnTopMenu.IsChecked;
         }
 
-        // The main livesplit thread code
+        /// <summary>
+        /// Create the livesplit connection and handle the loop until told to close the thread.
+        /// </summary>
         private void ConnectLivesplit()
         {
             LSConnection = new LivesplitConnection(this.Settings.livesplitHostname, this.Settings.livesplitPort);
@@ -169,6 +177,9 @@ namespace SplitNotesCS
             this.LSConnection.Disconnect();
         }
 
+        /// <summary>
+        /// Open a notefile annd set it as the new set of notes for the program.
+        /// </summary>
         private void OpenNotes()
         {
             var openFileDialog = new OpenFileDialog
@@ -192,6 +203,10 @@ namespace SplitNotesCS
             this.RenderNotes(this.LastIndex);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="centreIndex"></param>
         public void RenderNotes(int centreIndex)
         {
             this.LastIndex = centreIndex;
@@ -200,7 +215,7 @@ namespace SplitNotesCS
             {
                 
                 string rawNotes = this.Notes.GetRawNotes(centreIndex);
-                htmlData = this.Renderer.RenderTemplate(rawNotes);
+                htmlData = this.Renderer.RenderTemplate(rawNotes);  // Feed the notes into our HTML template
 
             }
             else
