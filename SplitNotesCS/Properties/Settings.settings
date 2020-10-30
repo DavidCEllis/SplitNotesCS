@@ -51,10 +51,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hotkeyNoteAdvance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
+      <Value Profile="(Default)">27</Value>
     </Setting>
     <Setting Name="hotkeyNoteReverse" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
+      <Value Profile="(Default)">27</Value>
     </Setting>
     <Setting Name="hotkeysActive" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

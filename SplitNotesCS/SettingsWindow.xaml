@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SplitNotesCS"
         mc:Ignorable="d"
-        Title="Settings" Height="500" Width="380" Icon="Resources/Images/logo_alpha.ico">
+        Title="Settings" Height="680" Width="380" Icon="Resources/Images/logo_alpha.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -18,6 +18,9 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,20 +28,20 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="livesplitAddressLabel" Content="Livesplit Server Address:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,10,20,10" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label x:Name="livesplitAddressLabel" Content="Livesplit Server Address:" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20,10,20,10" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         <TextBox x:Name="livesplitAddress" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Text="localhost" TextWrapping="Wrap" VerticalAlignment="Stretch" ToolTip="Server Address for Livesplit" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" MinWidth="100"/>
-        <Label x:Name="livesplitPortLabel" Content="Livesplit Server Port:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label x:Name="livesplitPortLabel" Content="Livesplit Server Port:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="1" VerticalAlignment="Center"/>
         <Separator HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="3" IsEnabled="True" HorizontalContentAlignment="Stretch" MinWidth="20" MinHeight="2"/>
-        <Label x:Name="previousSplitsLabel" Content="Show Previous Splits:" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Top" Margin="20,10,20,10"/>
-        <Label x:Name="nextSplitsLabel" Content="Show Next Splits:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="4" VerticalAlignment="Top"/>
-        <Label x:Name="splitSeparatorLabel" Content="Split Separator:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="5" VerticalAlignment="Top"/>
+        <Label x:Name="previousSplitsLabel" Content="Show Previous Splits:" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Center" Margin="20,10,20,10"/>
+        <Label x:Name="nextSplitsLabel" Content="Show Next Splits:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="4" VerticalAlignment="Center"/>
+        <Label x:Name="splitSeparatorLabel" Content="Split Separator:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="5" VerticalAlignment="Center"/>
         <Separator HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="6" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" MinHeight="2" MinWidth="20" IsEnabled="True"/>
         <TextBox x:Name="livesplitPort" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" Text="16834" TextWrapping="Wrap" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="100"/>
-        <Label x:Name="fontSizeLabel" Content="Font Size:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="7" VerticalAlignment="Top"/>
-        <Label x:Name="textColorLabel" Content="Text Colour:" Margin="20,10,20,10" Grid.Row="8" VerticalAlignment="Top"/>
-        <Label x:Name="backgroundColorLabel" Content="Background Colour:" Margin="20,10,20,10" Grid.Row="9" VerticalAlignment="Top"/>
-        <Button x:Name="okButton" Content="OK" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="10" VerticalAlignment="Center" MinWidth="50" Click="OKButton_Click"/>
-        <Button x:Name="cancelButton" Content="Cancel" Grid.Column="2" Margin="10,10,10,10" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Stretch" MinWidth="50" Click="CancelButton_Click"/>
+        <Label x:Name="fontSizeLabel" Content="Font Size:" HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="7" VerticalAlignment="Center"/>
+        <Label x:Name="textColorLabel" Content="Text Colour:" Margin="20,10,20,10" Grid.Row="8" VerticalAlignment="Center"/>
+        <Label x:Name="backgroundColorLabel" Content="Background Colour:" Margin="20,10,20,10" Grid.Row="9" VerticalAlignment="Center"/>
+        <Button x:Name="okButton" Content="OK" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="13" VerticalAlignment="Center" MinWidth="50" Click="OKButton_Click"/>
+        <Button x:Name="cancelButton" Content="Cancel" Grid.Column="2" Margin="10,10,10,10" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Stretch" MinWidth="50" Click="CancelButton_Click"/>
         <TextBox x:Name="previousSplits" Grid.ColumnSpan="2" Grid.Column="1" Margin="10" Grid.Row="3" Text="0" TextWrapping="Wrap" VerticalContentAlignment="Center" MinWidth="100"/>
         <TextBox x:Name="nextSplits" Grid.ColumnSpan="2" Grid.Column="1" Margin="10" Grid.Row="4" Text="2" TextWrapping="Wrap" VerticalContentAlignment="Center" MinWidth="100"/>
         <TextBox x:Name="splitSeparator" Grid.ColumnSpan="2" Grid.Column="1" Margin="10" Grid.Row="5" TextWrapping="Wrap" VerticalContentAlignment="Center" MinWidth="100" ToolTip="Delimiter used between splits"/>
@@ -47,6 +50,14 @@
         <TextBox x:Name="backgroundColor" Grid.Column="1" Margin="10" Grid.Row="9" Text="#F1F8FF" TextWrapping="Wrap" VerticalContentAlignment="Center" IsReadOnly="True"/>
         <Button x:Name="pickTextColorButton" Content="Pick" Grid.Column="2" Margin="10" Grid.Row="8" Click="PickTextColorButton_Click"/>
         <Button x:Name="pickBGColorButton" Content="Pick" Grid.Column="2" Margin="10" Grid.Row="9" Click="PickBGColorButton_Click"/>
+        <Separator HorizontalAlignment="Stretch" Margin="20,10,20,10" Grid.Row="10" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" MinHeight="2" MinWidth="20" IsEnabled="True"/>
+        <Label x:Name="nextSplitHotkeyLabel" Content="Next Split Hotkey:" Margin="20,10" Grid.Row="11" VerticalAlignment="Center"/>
+        <Label x:Name="previousSplitHotkeyLabel" Content="Previous Split Hotkey:" Margin="20,10" Grid.Row="12" VerticalAlignment="Center"/>
+        <TextBox x:Name="nextSplitHotkey" Grid.Column="1" Margin="10" Grid.Row="11" TextWrapping="Wrap" Text="Unbound" VerticalContentAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
+        <TextBox x:Name="previousSplitHotkey" Grid.Column="1" Margin="10" Grid.Row="12" TextWrapping="Wrap" Text="Unbound" VerticalContentAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
+        <Button x:Name="nextSplitHotkeySelect" Content="Pick" Grid.Column="2" Margin="10" Grid.Row="11" Click="nextSplitHotkeySelect_Click"/>
+        <Button x:Name="previousSplitHotkeySelect" Content="Pick" Grid.Column="2" Margin="10" Grid.Row="12" Click="previousSplitHotkeySelect_Click"/>
+
 
     </Grid>
 </Window>

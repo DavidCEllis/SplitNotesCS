@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using SplitNotesCS.Networking;
+using SplitNotesCS.Hotkeys;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,20 +27,27 @@ namespace SplitNotesCS
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Notemanager handles the text sanitizing and preparation of the individual splits
+        // Templater takes the output from notemanager and gives the page to render
+        // See the .cs source in the parsing folder.
         private Parsing.NoteManager Notes = null;
         private Parsing.Templater Renderer;
+
         private int LastIndex = 0;  // Used to check if it's necessary to update the HTML
 
         private readonly Properties.Settings Settings = Properties.Settings.Default;
 
-        private readonly int updateInterval = 100;  // Update 10x a second
+        // Details for networking and the livesplit connection
+        private readonly int updateInterval = 100;  // Update 10x a second - more than enough for this purpose
         volatile private bool closeThread = false;
         private Thread networkThread;
         private LivesplitConnection LSConnection;
 
+        // Keyboard hook for the next/previous split function
+        public HotkeyManager hotkeys;
         private int SplitOffset = 0;  // This is an offset for manually moving through splits
 
-        private string CurrentNoteFile = null;
+        private string CurrentNoteFile = null;  // Path to current set of splits
 
         public MainWindow()
         {
@@ -50,16 +59,13 @@ namespace SplitNotesCS
 
         }
 
-        /// <summary>
-        /// This is the listener for the loaded event of the window 
-        /// It sets the height and width from the settings and starts the rendering and livesplit connection
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.Height = this.Settings.windowHeight;
             this.Width = this.Settings.windowWidth;
+            this.Topmost = this.Settings.onTop;
+            this.OnTopMenu.IsChecked = this.Settings.onTop;
+            this.HotkeyToggle.IsChecked = this.Settings.hotkeysActive;
 
             // Prepare note renderer
             this.Renderer = new Parsing.Templater(this.Settings);
@@ -73,6 +79,8 @@ namespace SplitNotesCS
             this.networkThread.IsBackground = true;
             this.networkThread.Start();
 
+            this.hotkeys = new HotkeyManager();
+
             if (this.Settings.hotkeysActive)
             {
                 this.EnableHotkeys();
@@ -83,6 +91,7 @@ namespace SplitNotesCS
             // Store window width and height
             this.Settings.windowHeight = this.Height;
             this.Settings.windowWidth = this.Width;
+            this.Settings.onTop = this.Topmost;
 
             // Store current settings.
             this.Settings.Save();
@@ -91,19 +100,13 @@ namespace SplitNotesCS
             this.closeThread = true;
             Thread.Sleep(this.updateInterval * 2); // Sleep to allow the thread to close
             
-
+            // Cleanup Keyboard Hook
             if (this.Settings.hotkeysActive)
             {
                 this.DisableHotkeys();
             }
-        }
+            this.hotkeys.Cleanup();
 
-        private void EnableHotkeys() 
-        { 
-        }
-
-        private void DisableHotkeys() 
-        { 
         }
 
         // Connecting buttons
@@ -114,8 +117,16 @@ namespace SplitNotesCS
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            var settingsWin = new SettingsWindow();
+            var settingsWin = new SettingsWindow(this.hotkeys);
+
+            // Disable hotkeys while the settings window is open
+            this.DisableHotkeys();
+
+            settingsWin.Topmost = this.Topmost;  // if this window is topmost, make settings topmost so it's not hidden.
             settingsWin.ShowDialog();
+
+            // Enable hotkeys again
+            if (this.Settings.hotkeysActive) { this.EnableHotkeys(); }
 
             // Settings have been changed - refresh notes and connection
             if (this.CurrentNoteFile != null)
@@ -131,6 +142,36 @@ namespace SplitNotesCS
         private void ToggleTopmost(object sender, RoutedEventArgs e)
         {
             this.Topmost = this.OnTopMenu.IsChecked;
+        }
+
+        private void ToggleHotkeys(object sender, RoutedEventArgs e)
+        {
+            // Store the setting
+            this.Settings.hotkeysActive = this.HotkeyToggle.IsChecked;
+
+            if (this.Settings.hotkeysActive) { this.EnableHotkeys(); } 
+            else { this.DisableHotkeys(); }
+        }
+
+        private void AdvanceSplits() { this.SplitOffset++; }
+        private void ReverseSplits() { this.SplitOffset--; }
+
+        private List<Hotkey> GetHotkeys()
+        {
+            return new List<Hotkey> { 
+                new Hotkey(this.Settings.hotkeyNoteAdvance, this.AdvanceSplits),
+                new Hotkey(this.Settings.hotkeyNoteReverse, this.ReverseSplits) 
+            };
+        }
+
+        private void EnableHotkeys()
+        {
+            this.hotkeys.Enable(this.GetHotkeys());
+        }
+
+        private void DisableHotkeys()
+        {
+            this.hotkeys.Disable();
         }
 
         /// <summary>
