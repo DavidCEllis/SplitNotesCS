@@ -201,7 +201,9 @@ namespace SplitNotesCS
                 {
                     try
                     {
-                        int livesplitIndex = this.LSConnection.GetIndex() + this.SplitOffset; // Get the current index and combine with the offset
+                        // Get the current index and combine with the offset, prevent from being < 0
+                        int livesplitIndex = Math.Max(this.LSConnection.GetIndex() + this.SplitOffset, 0);
+                        
                         if (this.LastIndex != livesplitIndex)
                         {
                             this.Dispatcher.Invoke(() => this.RenderNotes(livesplitIndex));
@@ -232,6 +234,7 @@ namespace SplitNotesCS
             {
                 this.CurrentNoteFile = openFileDialog.FileName;
                 this.Notes = new Parsing.NoteManager(openFileDialog.FileName, this.Settings);
+                this.SplitOffset = 0;  // reset the offset
                 this.RenderNotes();
             }
         }
