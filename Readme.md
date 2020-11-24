@@ -30,7 +30,7 @@ Text format notes will automatically have line breaks inserted in between lines.
 
 The settings page offers some customisation and connection settings including:
 
-* Server hostname and port
+* Livesplit server hostname and port
 * Show previous/next N splits
 * Custom split separator
 * Base font size
