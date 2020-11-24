@@ -13,6 +13,7 @@
                     <MenuItem Header="_Open Notes" Click="OpenNotes_Click"/>
                     <MenuItem Header="_Settings" Click="Settings_Click"/>
                     <MenuItem x:Name="OnTopMenu" Header="_Always On Top" IsCheckable="True" Click="ToggleTopmost"/>
+                    <MenuItem x:Name="HotkeyToggle" Header="_Enable Hotkeys" IsCheckable="True" Click="ToggleHotkeys"/>
                 </MenuItem>
             </Menu>
             <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom" FontSize="18">

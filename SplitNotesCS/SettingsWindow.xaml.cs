@@ -1,6 +1,7 @@
 ﻿using AngleSharp.Dom.Events;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SplitNotesCS.Hotkeys;
+using LowLevelHooking;
+using System.Threading;
 
 namespace SplitNotesCS
 {
@@ -18,9 +22,18 @@ namespace SplitNotesCS
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public SettingsWindow()
+        // Needed for configuration
+
+        private readonly HotkeyManager hotkeyManager;
+
+        private VirtualKey nextKey;
+        private VirtualKey previousKey;
+
+        public SettingsWindow(HotkeyManager hotkeyManager)
         {
             InitializeComponent();
+
+            this.hotkeyManager = hotkeyManager;
             this.Loaded += this.OnPageLoaded;  // Subscribe to the loaded event
         }
 
@@ -38,6 +51,13 @@ namespace SplitNotesCS
             this.fontSize.Text = settings.fontSize.ToString();
             this.textColor.Text = settings.textColor;
             this.backgroundColor.Text = settings.backgroundColor;
+
+            this.nextKey = (VirtualKey)settings.hotkeyNoteAdvance;
+            this.previousKey = (VirtualKey)settings.hotkeyNoteReverse;
+
+            this.nextSplitHotkey.Text = (this.nextKey == VirtualKey.Escape) ? "Unbound" : this.nextKey.ToString();
+            this.previousSplitHotkey.Text = (this.previousKey == VirtualKey.Escape) ? "Unbound" : this.previousKey.ToString();
+
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
@@ -60,6 +80,9 @@ namespace SplitNotesCS
             settings.fontSize = Math.Abs(int.Parse(this.fontSize.Text));
             settings.textColor = this.textColor.Text;
             settings.backgroundColor = this.backgroundColor.Text;
+
+            settings.hotkeyNoteAdvance = (int)this.nextKey;
+            settings.hotkeyNoteReverse = (int)this.previousKey;
 
             settings.Save();
             this.Close();
@@ -93,5 +116,42 @@ namespace SplitNotesCS
                 this.backgroundColor.Text = result;
             }
         }
+
+        private void nextSplitHotkeySelect_Click(object sender, RoutedEventArgs e)
+        {
+            this.nextSplitHotkeySelect.IsEnabled = false;
+            this.previousSplitHotkeySelect.IsEnabled = false; // Also disable the other select button
+            this.nextSplitHotkeySelect.Content = "Listening...";
+            this.hotkeyManager.ChooseKey(setNextSplitKey);
+        }
+
+        public void setNextSplitKey(int keycode)
+        {
+            this.nextKey = (VirtualKey)keycode;
+            this.nextSplitHotkey.Text = (this.nextKey == VirtualKey.Escape) ? "Unbound" : this.nextKey.ToString();
+            this.nextSplitHotkeySelect.IsEnabled = true;
+            this.nextSplitHotkeySelect.Content = "Pick";
+
+            this.previousSplitHotkeySelect.IsEnabled = true;  // Enable the other control again
+        }
+
+        private void previousSplitHotkeySelect_Click(object sender, RoutedEventArgs e)
+        {
+            this.nextSplitHotkeySelect.IsEnabled = false;  // Also disable the other select button
+            this.previousSplitHotkeySelect.IsEnabled = false; 
+            this.previousSplitHotkeySelect.Content = "Listening...";
+            this.hotkeyManager.ChooseKey(setPreviousSplitKey);
+        }
+
+        public void setPreviousSplitKey(int keycode)
+        {
+            this.previousKey = (VirtualKey)keycode;
+            this.previousSplitHotkey.Text = (this.previousKey == VirtualKey.Escape) ? "Unbound" : this.previousKey.ToString();
+            this.previousSplitHotkeySelect.IsEnabled = true;
+            this.previousSplitHotkeySelect.Content = "Pick";
+
+            this.nextSplitHotkeySelect.IsEnabled = true;  // Enable the other control again
+        }
+
     }
 }
