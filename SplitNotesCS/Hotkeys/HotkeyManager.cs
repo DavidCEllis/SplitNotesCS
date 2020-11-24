@@ -1,15 +1,6 @@
-﻿using System;
+﻿using LowLevelHooking;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Drawing.Design;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using AngleSharp.Css.Dom;
-using LowLevelHooking;
 
 namespace SplitNotesCS.Hotkeys
 {

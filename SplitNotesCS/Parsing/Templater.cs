@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Stubble.Core;
+using Stubble.Core.Builders;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Stubble.Core;
-using Stubble.Core.Builders;
 
 namespace SplitNotesCS.Parsing
 {
