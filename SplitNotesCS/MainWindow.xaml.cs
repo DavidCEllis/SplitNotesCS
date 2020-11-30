@@ -82,11 +82,11 @@ namespace SplitNotesCS
 
             // Store current settings.
             this.Settings.Save();
-            
+
             // Tell the thread to close
             this.closeThread = true;
             Thread.Sleep(this.updateInterval * 2); // Sleep to allow the thread to close
-            
+
             // Cleanup Keyboard Hook
             if (this.Settings.hotkeysActive)
             {
@@ -136,7 +136,7 @@ namespace SplitNotesCS
             // Store the setting
             this.Settings.hotkeysActive = this.HotkeyToggle.IsChecked;
 
-            if (this.Settings.hotkeysActive) { this.EnableHotkeys(); } 
+            if (this.Settings.hotkeysActive) { this.EnableHotkeys(); }
             else { this.DisableHotkeys(); }
         }
 
@@ -145,9 +145,9 @@ namespace SplitNotesCS
 
         private List<Hotkey> GetHotkeys()
         {
-            return new List<Hotkey> { 
+            return new List<Hotkey> {
                 new Hotkey(this.Settings.hotkeyNoteAdvance, this.AdvanceSplits),
-                new Hotkey(this.Settings.hotkeyNoteReverse, this.ReverseSplits) 
+                new Hotkey(this.Settings.hotkeyNoteReverse, this.ReverseSplits)
             };
         }
 
@@ -190,7 +190,7 @@ namespace SplitNotesCS
                     {
                         // Get the current index and combine with the offset, prevent from being < 0
                         int livesplitIndex = Math.Max(this.LSConnection.GetIndex() + this.SplitOffset, 0);
-                        
+
                         if (this.LastIndex != livesplitIndex)
                         {
                             this.Dispatcher.Invoke(() => this.RenderNotes(livesplitIndex));
@@ -201,7 +201,7 @@ namespace SplitNotesCS
                         this.Dispatcher.Invoke(() => this.SetStatus($"Lost Connection to Livesplit - retrying: {e.Message}"));
                     }
                 }
-                Thread.Sleep(this.updateInterval);   
+                Thread.Sleep(this.updateInterval);
             }
 
             this.LSConnection.Disconnect();
@@ -244,7 +244,7 @@ namespace SplitNotesCS
             string htmlData;
             if (this.Notes != null)
             {
-                
+
                 string rawNotes = this.Notes.GetRawNotes(centreIndex);
                 htmlData = this.Renderer.RenderTemplate(rawNotes);  // Feed the notes into our HTML template
 

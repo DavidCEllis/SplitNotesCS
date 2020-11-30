@@ -12,7 +12,7 @@ namespace SplitNotesCS.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -145,7 +145,7 @@ namespace SplitNotesCS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("./Resources/Templates")]
+        [global::System.Configuration.DefaultSettingValueAttribute("./Resources/Static")]
         public string cssTemplateFolder {
             get {
                 return ((string)(this["cssTemplateFolder"]));
@@ -157,7 +157,7 @@ namespace SplitNotesCS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Default.css")]
+        [global::System.Configuration.DefaultSettingValueAttribute("default.css")]
         public string cssTemplateFile {
             get {
                 return ((string)(this["cssTemplateFile"]));

@@ -61,7 +61,7 @@ namespace SplitNotesCS
 
 
             settings.livesplitHostname = this.livesplitAddress.Text;
-            
+
             settings.splitSeparator = this.splitSeparator.Text;
             settings.previousSplits = Math.Abs(int.Parse(this.previousSplits.Text));
             settings.nextSplits = Math.Abs(int.Parse(this.nextSplits.Text));
@@ -126,7 +126,7 @@ namespace SplitNotesCS
         private void previousSplitHotkeySelect_Click(object sender, RoutedEventArgs e)
         {
             this.nextSplitHotkeySelect.IsEnabled = false;  // Also disable the other select button
-            this.previousSplitHotkeySelect.IsEnabled = false; 
+            this.previousSplitHotkeySelect.IsEnabled = false;
             this.previousSplitHotkeySelect.Content = "Listening...";
             this.hotkeyManager.ChooseKey(setPreviousSplitKey);
         }

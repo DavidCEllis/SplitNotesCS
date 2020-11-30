@@ -33,10 +33,10 @@
       <Value Profile="(Default)">DefaultLayout.html</Value>
     </Setting>
     <Setting Name="cssTemplateFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">./Resources/Templates</Value>
+      <Value Profile="(Default)">./Resources/Static</Value>
     </Setting>
     <Setting Name="cssTemplateFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default.css</Value>
+      <Value Profile="(Default)">default.css</Value>
     </Setting>
     <Setting Name="onTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

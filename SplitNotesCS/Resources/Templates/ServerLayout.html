@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Splitnotes - {{& notefile }}</title>
+    <style type="text/css">
+        :root {
+            font-size: {{font_size}}px;
+            color: {{text_color}};
+            background-color: {{bg_color}};
+        }
+        {{& css}}
+    </style>
+</head>
+<body>
+<div id="splits" class="main-content"></div>
+<script src="{{& streamlistener }}"></script>
+</body>
+</html>
