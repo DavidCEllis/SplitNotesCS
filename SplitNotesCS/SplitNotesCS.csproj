@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlSanitizer">
-      <Version>5.0.343</Version>
+      <Version>5.0.372</Version>
     </PackageReference>
     <PackageReference Include="LowLevelHooking">
       <Version>1.0.1</Version>
